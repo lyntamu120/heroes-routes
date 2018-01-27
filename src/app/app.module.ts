@@ -5,17 +5,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+
 import { CrisisListComponent } from './crisis-list/crisis-list.component';
 import { HeroListComponent } from './hero-list/hero-list.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 
-const appRoutes: Routes = [
-    { path: 'crisis-center', component: CrisisListComponent},
-    { path: 'heroes', component: HeroListComponent },
-    { path: '', redirectTo: '/heroes', pathMatch: 'full'},
-    { path: '**', component: NotFoundComponent}
-];
+
 
 @NgModule({
   declarations: [
@@ -27,7 +24,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
