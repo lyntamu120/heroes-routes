@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 import { HeroService, Hero } from '../hero.service';
 
@@ -9,22 +12,21 @@ import { HeroService, Hero } from '../hero.service';
 })
 export class HeroListComponent implements OnInit {
 
-  selectedHero: Hero;
+  selectedId: number;
 
-  heroes: Hero[];
+  heroes$: Observable<Hero[]>;  
 
-  constructor(private heroService: HeroService) { }
+  constructor(
+      private heroService: HeroService,
+      private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.getHeroes();
+    this.heroes$ = this.route.paramMap
+        .switchMap((params: ParamMap) => {
+            this.selectedId = +params.get('id');
+            return this.heroService.getHeroes();
+        });
   }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes()
-        .subscribe(heroes => this.heroes = heroes);
-  }
 }
