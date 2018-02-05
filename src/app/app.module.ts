@@ -4,11 +4,15 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './login.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HeroesModule } from './heroes/heroes.module';
 import { CrisisModule } from './crisis-center/crisis.module';
 import { AdminModule } from './admin/admin.module';
+
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
 
 
 import { ComposeMessageComponent } from './compose-message/compose-message.component';
@@ -18,7 +22,8 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
   declarations: [
     AppComponent,
     NotFoundComponent,
-    ComposeMessageComponent
+    ComposeMessageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,7 @@ import { ComposeMessageComponent } from './compose-message/compose-message.compo
     AdminModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ AuthGuard, AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
